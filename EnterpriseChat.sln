@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36203.30
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{A02571BA-DD66-47D9-BB29-8F398C9E5033}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Maui", "Maui", "{D8230A5F-3D78-4A10-8D67-30B05B7EE402}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnterpriseChat.App", "src\Client\Maui\EnterpriseChat.App\EnterpriseChat.App.csproj", "{335C4676-2C82-3CCA-F10F-ABE24883170C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{335C4676-2C82-3CCA-F10F-ABE24883170C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335C4676-2C82-3CCA-F10F-ABE24883170C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335C4676-2C82-3CCA-F10F-ABE24883170C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{335C4676-2C82-3CCA-F10F-ABE24883170C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335C4676-2C82-3CCA-F10F-ABE24883170C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8230A5F-3D78-4A10-8D67-30B05B7EE402} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{335C4676-2C82-3CCA-F10F-ABE24883170C} = {D8230A5F-3D78-4A10-8D67-30B05B7EE402}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1307A981-1989-4656-83C2-A86D614828BF}
+	EndGlobalSection
+EndGlobal

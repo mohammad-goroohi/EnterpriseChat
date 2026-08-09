@@ -1,0 +1,156 @@
+﻿@page "/"
+
+<div class="container-fluid p-0" dir="rtl">
+    <div class="chat-container">
+
+        
+        <!-- Header -->
+        <div class="chat-header d-flex align-items-center px-3 py-2">
+            <div class="chat-avatar me-2">
+                <span>ع</span>
+            </div>
+
+            <div class="flex-grow-1">
+                <div class="fw-bold">علی رضایی</div>
+                <small class="text-muted">آنلاین</small>
+            </div>
+
+            <button class="btn btn-sm btn-light">
+                <span class="fs-5">⋮</span>
+            </button>
+        </div>
+
+        <!-- Messages -->
+        <div class="chat-messages">
+
+            @foreach (var message in Messages)
+            {
+                <div class="message-row @(message.IsMine ? "mine" : "theirs")">
+
+                    <div class="message-bubble">
+
+                        <div class="message-text">
+                            @message.Text
+                        </div>
+
+                        <div class="message-meta">
+                            <span>@message.Time</span>
+
+                            @if (message.IsMine)
+                            {
+                                <span class="message-check">✓✓</span>
+                            }
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+        <!-- Message Input -->
+        <div class="chat-input-container">
+
+            <div class="chat-input-wrapper">
+
+                <input class="form-control chat-input"
+                       placeholder="پیام خود را بنویسید..."
+                       @bind="NewMessage"
+                       @onkeydown="HandleKeyDown" />
+
+                <button class="btn send-button"
+                        @onclick="SendMessage"
+                        disabled="@string.IsNullOrWhiteSpace(NewMessage)">
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+
+</div>
+
+@code {
+
+
+private string NewMessage = string.Empty;
+
+    private List<ChatMessage> Messages = new()
+{
+    new ChatMessage
+    {
+        Text = "سلام، خوبی؟",
+        Time = "18:32",
+        IsMine = false
+    },
+
+    new ChatMessage
+    {
+        Text = "سلام، ممنون 😊 تو خوبی؟",
+        Time = "18:33",
+        IsMine = true
+    },
+
+    new ChatMessage
+    {
+        Text = "مرسی، منم خوبم.",
+        Time = "18:34",
+        IsMine = false
+    },
+
+    new ChatMessage
+    {
+        Text = "روی پروژه جدید کار می‌کنی؟",
+        Time = "18:34",
+        IsMine = false
+    },
+
+    new ChatMessage
+    {
+        Text = "آره، دارم قسمت چت رو پیاده‌سازی می‌کنم.",
+        Time = "18:35",
+        IsMine = true
+    }
+};
+
+
+    private void SendMessage()
+    {
+        if (string.IsNullOrWhiteSpace(NewMessage))
+            return;
+
+        Messages.Add(new ChatMessage
+        {
+            Text = NewMessage.Trim(),
+            Time = DateTime.Now.ToString("HH:mm"),
+            IsMine = true
+        });
+
+        NewMessage = string.Empty;
+    }
+
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(NewMessage))
+        {
+            SendMessage();
+        }
+    }
+
+
+    private class ChatMessage
+    {
+        public string Text { get; set; } = string.Empty;
+
+        public string Time { get; set; } = string.Empty;
+
+        public bool IsMine { get; set; }
+    }
+
+
+}
