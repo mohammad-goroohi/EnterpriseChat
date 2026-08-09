@@ -1,1 +1,8 @@
-wwwroot/** linguist-vendored
+# Exclude wwwroot
+/wwwroot/** linguist-generated
+
+# Exclude all CSS files
+*.css linguist-generated
+
+# Exclude Blazor scoped CSS
+*.razor.css linguist-generated
