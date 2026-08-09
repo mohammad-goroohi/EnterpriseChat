@@ -1,8 +1,10 @@
-# Exclude wwwroot
-/wwwroot/** linguist-generated
+# GitHub Linguist configuration
+
+# Exclude all wwwroot contents
+**/wwwroot/** linguist-vendored
 
 # Exclude all CSS files
-*.css linguist-generated
+**/*.css linguist-vendored
 
 # Exclude Blazor scoped CSS
-*.razor.css linguist-generated
+**/*.razor.css linguist-vendored
