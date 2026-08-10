@@ -1,0 +1,246 @@
+﻿@page "/chats"
+
+<div class="chat-page">
+
+    <!-- Header -->
+    <div class="chat-header">
+        <div class="container-fluid px-0">
+            <div class="d-flex align-items-center justify-content-between">
+
+                <div>
+                    <h5 class="mb-0 fw-semibold">Chats</h5>
+                    <small class="text-muted">@ChatsItems.Count chats</small>
+                </div>
+
+                <!-- New Chat -->
+                <button class="btn btn-primary rounded-circle new-chat-btn"
+                        title="New Chat">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Search -->
+    <div class="chat-search">
+        <div class="input-group">
+
+            <span class="input-group-text">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+
+            <input type="text"
+                   class="form-control"
+                   placeholder="Search chats..."
+                   @bind="SearchText"
+                   @bind:event="oninput" />
+
+        </div>
+    </div>
+
+
+    <!-- Chat List -->
+    <div class="chat-list">
+
+        @foreach (var chat in FilteredChats)
+        {
+            <div class="chat-item"
+                 @onclick="() => OpenChat(chat)">
+
+                <!-- Avatar -->
+                <div class="chat-avatar-wrapper">
+
+                    <img src="@chat.Avatar"
+                         class="chat-avatar"
+                         alt="@chat.Name" />
+
+                    @if (chat.IsOnline)
+                    {
+                        <span class="online-dot"></span>
+                    }
+
+                </div>
+
+
+                <!-- Chat Content -->
+                <div class="chat-content">
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="chat-name">
+                            @chat.Name
+                        </div>
+
+                        <div class="chat-time">
+                            @chat.LastMessageTime
+                        </div>
+
+                    </div>
+
+
+                    <div class="d-flex justify-content-between align-items-center">
+
+                        <div class="chat-last-message">
+
+                            @if (chat.IsTyping)
+                            {
+                                <span class="typing-text">
+                                    typing...
+                                </span>
+                            }
+                            else
+                            {
+                                @chat.LastMessage
+                            }
+
+                        </div>
+
+
+                        @if (chat.UnreadCount > 0)
+                        {
+                            <span class="unread-badge">
+                                @(chat.UnreadCount > 99
+                                                        ? "99+"
+                                                        : chat.UnreadCount.ToString())
+                    </span>
+                                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+        @if (!FilteredChats.Any())
+        {
+            <div class="empty-search">
+
+                <i class="fa-solid fa-comments"></i>
+
+                <div class="mt-3 fw-semibold">
+                    No chats found
+                </div>
+
+                <small class="text-muted">
+                    Try searching for another user
+                </small>
+
+            </div>
+        }
+
+    </div>
+
+</div>
+
+
+@code {
+
+    private string SearchText = string.Empty;
+
+    private List<ChatItem> ChatsItems = new()
+    {
+        new ChatItem
+        {
+            Id = 1,
+            Name = "Ali Ahmadi",
+            Avatar = "https://i.pravatar.cc/150?img=12",
+            LastMessage = "I'll send you the files tomorrow.",
+            LastMessageTime = "10:42 PM",
+            UnreadCount = 3,
+            IsOnline = true
+        },
+
+        new ChatItem
+        {
+            Id = 2,
+            Name = "Sara Mohammadi",
+            Avatar = "https://i.pravatar.cc/150?img=32",
+            LastMessage = "Did you see the new design?",
+            LastMessageTime = "9:18 PM",
+            UnreadCount = 0,
+            IsOnline = true
+        },
+
+        new ChatItem
+        {
+            Id = 3,
+            Name = "Reza Karimi",
+            Avatar = "https://i.pravatar.cc/150?img=68",
+            LastMessage = "Thanks 👍",
+            LastMessageTime = "8:45 PM",
+            UnreadCount = 12,
+            IsOnline = false
+        },
+
+        new ChatItem
+        {
+            Id = 4,
+            Name = "Maryam Hosseini",
+            Avatar = "https://i.pravatar.cc/150?img=47",
+            LastMessage = "Let's talk later.",
+            LastMessageTime = "Yesterday",
+            UnreadCount = 0,
+            IsOnline = false
+        },
+
+        new ChatItem
+        {
+            Id = 5,
+            Name = "Mohammad Rezaei",
+            Avatar = "https://i.pravatar.cc/150?img=53",
+            LastMessage = "Are you coming today?",
+            LastMessageTime = "Yesterday",
+            UnreadCount = 5,
+            IsOnline = true
+        },
+
+        new ChatItem
+        {
+            Id = 6,
+            Name = "Nima Ahmadi",
+            Avatar = "https://i.pravatar.cc/150?img=11",
+            LastMessage = "Okay, see you!",
+            LastMessageTime = "Monday",
+            UnreadCount = 0,
+            IsOnline = false
+        }
+    };
+
+
+    private IEnumerable<ChatItem> FilteredChats =>
+        string.IsNullOrWhiteSpace(SearchText)
+            ? ChatsItems
+            : ChatsItems.Where(x =>
+                x.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase));
+
+
+    private void OpenChat(ChatItem chat)
+    {
+        // بعداً اینجا navigation به صفحه چت انجام می‌شود.
+        // مثال:
+        // NavigationManager.NavigateTo($"/chat/{chat.Id}");
+    }
+
+
+    public class ChatItem
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; } = string.Empty;
+
+        public string Avatar { get; set; } = string.Empty;
+
+        public string LastMessage { get; set; } = string.Empty;
+
+        public string LastMessageTime { get; set; } = string.Empty;
+
+        public int UnreadCount { get; set; }
+
+        public bool IsOnline { get; set; }
+
+        public bool IsTyping { get; set; }
+    }
+}
