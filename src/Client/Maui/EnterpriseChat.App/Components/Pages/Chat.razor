@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/chat/{id:int}"
 
 <div class="container-fluid p-0" dir="rtl">
     <div class="chat-container">
@@ -76,8 +76,10 @@
 
 @code {
 
+    [Parameter]
+    public int Id { get; set; }
 
-private string NewMessage = string.Empty;
+    private string NewMessage = string.Empty;
 
     private List<ChatMessage> Messages = new()
 {

@@ -1,5 +1,6 @@
-﻿@page "/chats"
-
+﻿@page "/"
+@page "/chats"
+@inject NavigationManager Navigation
 <div class="chat-page">
 
     <!-- Header -->
@@ -219,6 +220,7 @@
 
     private void OpenChat(ChatItem chat)
     {
+        Navigation.NavigateTo($"/chat/{chat.Id}");
         // بعداً اینجا navigation به صفحه چت انجام می‌شود.
         // مثال:
         // NavigationManager.NavigateTo($"/chat/{chat.Id}");
