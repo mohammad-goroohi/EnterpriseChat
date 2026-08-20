@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using Microsoft.Extensions.Logging;
 
 namespace EnterpriseChat.App
 {
@@ -17,6 +18,14 @@ namespace EnterpriseChat.App
             builder.Services.AddMauiBlazorWebView();
 
             builder.Services.AddSingleton<MainPage>();
+
+            builder.Services.AddSingleton(service =>
+            {
+                return new HubConnectionBuilder()
+                 .WithUrl("http://localhost:53353/ChatHub")
+                 .Build();
+            });
+
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
