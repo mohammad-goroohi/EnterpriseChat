@@ -16,6 +16,7 @@ namespace EnterpriseChat.App
 
             builder.Services.AddMauiBlazorWebView();
 
+            builder.Services.AddSingleton<MainPage>();
 #if DEBUG
     		builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
